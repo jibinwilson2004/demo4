@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GRAD LOOM — Graduation Gown Rentals</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-dark: #1a2b1a;
+    --green-mid: #2d4a2d;
+    --green-accent: #3d6b3d;
+    --cream: #f5f0e8;
+    --gold: #c9a84c;
+    --gold-light: #e8c96a;
+    --red-accent: #8b2a2a;
+    --white: #ffffff;
+    --text-light: #d4cfc6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--green-dark);
+    overflow-x: hidden;
+  }
+
+  /* SCROLLING TICKER */
+  .ticker-wrap {
+    background: var(--green-dark);
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 10px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  .ticker {
+    display: inline-block;
+    animation: ticker 22s linear infinite;
+  }
+  .ticker span {
+    color: var(--gold);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 3px;
+    padding: 0 40px;
+  }
+  .ticker span.dot { color: var(--cream); }
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* NAV */
+  nav {
+    background: var(--green-dark);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 60px;
+    position: sticky;
+    top: 37px;
+    z-index: 999;
+    border-bottom: 1px solid var(--green-accent);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--cream);
+    letter-spacing: 4px;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    background: var(--gold);
+    color: var(--green-dark);
+    padding: 10px 24px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .nav-cta:hover { background: var(--gold-light); }
+
+  /* HERO */
+  .hero {
+    background: var(--green-dark);
+    min-height: 92vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    position: relative;
+  }
+  .hero-left {
+    padding: 80px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(60px, 8vw, 110px);
+    font-weight: 900;
+    color: var(--cream);
+    line-height: 0.92;
+    margin-bottom: 32px;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-subtitle {
+    color: var(--text-light);
+    font-size: 15px;
+    line-height: 1.7;
+    max-width: 380px;
+    margin-bottom: 48px;
+    font-weight: 300;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--green-dark);
+    padding: 16px 36px;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-outline {
+    border: 1px solid var(--text-light);
+    color: var(--text-light);
+    padding: 16px 36px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+  .hero-stats {
+    display: flex;
+    gap: 48px;
+    margin-top: 64px;
+    padding-top: 40px;
+    border-top: 1px solid var(--green-accent);
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--gold);
+    letter-spacing: 2px;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 11px;
+    color: var(--text-light);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-img-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--green-mid) 0%, var(--green-accent) 50%, var(--green-dark) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .grad-silhouette {
+    width: 340px;
+    height: 520px;
+    background: linear-gradient(180deg, var(--green-dark) 0%, #0d1a0d 100%);
+    border-radius: 180px 180px 0 0;
+    position: relative;
+    box-shadow: 0 0 80px rgba(201,168,76,0.15);
+  }
+  .grad-cap {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 160px;
+    height: 20px;
+    background: var(--green-dark);
+    border: 2px solid var(--gold);
+  }
+  .grad-cap::before {
+    content: '';
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 30px;
+    background: var(--green-dark);
+    border: 2px solid var(--gold);
+    border-bottom: none;
+  }
+  .grad-cap::after {
+    content: '';
+    position: absolute;
+    top: -28px;
+    right: -20px;
+    width: 40px;
+    height: 2px;
+    background: var(--gold);
+    transform: rotate(45deg);
+  }
+  .hero-badge {
+    position: absolute;
+    bottom: 60px;
+    right: 40px;
+    background: var(--gold);
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: spin-slow 12s linear infinite;
+  }
+  .hero-badge-text {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--green-dark);
+    text-align: center;
+    line-height: 1.4;
+  }
+  @keyframes spin-slow { to { transform: rotate(360deg); } }
+
+  /* MARQUEE BAR */
+  .marquee-bar {
+    background: var(--gold);
+    padding: 14px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .marquee-inner {
+    display: inline-block;
+    animation: ticker 18s linear infinite;
+  }
+  .marquee-inner span {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 4px;
+    color: var(--green-dark);
+    padding: 0 30px;
+  }
+  .marquee-inner span.star { color: var(--green-mid); }
+
+  /* SECTION HEADERS */
+  .section-label {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    opacity: 0.7;
+  }
+
+  /* HOW IT WORKS */
+  .how-it-works {
+    background: var(--cream);
+    padding: 100px 60px;
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 40px;
+  }
+  .hiw-content { }
+  .section-eyebrow {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-eyebrow::before {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 1px;
+    background: var(--gold);
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(40px, 5vw, 68px);
+    font-weight: 900;
+    color: var(--green-dark);
+    line-height: 1.0;
+    margin-bottom: 60px;
+  }
+  .section-title em { font-style: italic; color: var(--green-accent); }
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+  }
+  .step {
+    background: var(--green-dark);
+    padding: 48px 36px;
+    position: relative;
+    transition: background 0.3s;
+    cursor: default;
+  }
+  .step:hover { background: var(--green-mid); }
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 80px;
+    color: var(--green-accent);
+    line-height: 1;
+    margin-bottom: 20px;
+    transition: color 0.3s;
+  }
+  .step:hover .step-num { color: var(--gold); }
+  .step-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--cream);
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+  .step-desc {
+    font-size: 13px;
+    color: var(--text-light);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* COLLECTIONS */
+  .collections {
+    background: var(--green-dark);
+    padding: 100px 60px;
+  }
+  .collections-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 50px;
+  }
+  .collections-header .section-title { color: var(--cream); margin-bottom: 0; }
+  .collections-header .section-title em { color: var(--gold); }
+  .view-all-link {
+    color: var(--gold);
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 2px;
+    transition: opacity 0.3s;
+  }
+  .view-all-link:hover { opacity: 0.7; }
+
+  /* FILTER TABS */
+  .filter-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+  .tab {
+    background: transparent;
+    border: 1px solid var(--green-accent);
+    color: var(--text-light);
+    padding: 8px 20px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .tab.active, .tab:hover {
+    background: var(--gold);
+    color: var(--green-dark);
+    border-color: var(--gold);
+  }
+
+  .gowns-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+  }
+  .gown-card {
+    background: var(--green-mid);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    group: true;
+  }
+  .gown-img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .gown-img-bg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transition: transform 0.6s ease;
+  }
+  .gown-card:hover .gown-img-bg { transform: scale(1.05); }
+  /* Gown color variants */
+  .bg-v1 { background: linear-gradient(160deg, #1a3020 0%, #0d1a10 100%); }
+  .bg-v2 { background: linear-gradient(160deg, #1a1a2e 0%, #0d0d1a 100%); }
+  .bg-v3 { background: linear-gradient(160deg, #2e1a1a 0%, #1a0d0d 100%); }
+  .bg-v4 { background: linear-gradient(160deg, #1a1a1a 0%, #0d0d0d 100%); }
+  .bg-v5 { background: linear-gradient(160deg, #2e2a1a 0%, #1a160d 100%); }
+  .bg-v6 { background: linear-gradient(160deg, #1a2a2e 0%, #0d1518 100%); }
+
+  .gown-figure {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    height: 80%;
+  }
+  .gown-shape {
+    width: 100%;
+    height: 100%;
+    border-radius: 50% 50% 0 0;
+    position: relative;
+  }
+  .g-dark-green { background: linear-gradient(180deg, #2d5a3d 0%, #1a3020 100%); }
+  .g-navy { background: linear-gradient(180deg, #1a2d5a 0%, #0d1a30 100%); }
+  .g-maroon { background: linear-gradient(180deg, #5a1a1a 0%, #3d0d0d 100%); }
+  .g-black { background: linear-gradient(180deg, #2a2a2a 0%, #111 100%); }
+  .g-gold-trim { background: linear-gradient(180deg, #3d3a20 0%, #2a1a0d 100%); }
+  .g-royal { background: linear-gradient(180deg, #2a1a5a 0%, #150d30 100%); }
+
+  .gown-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, transparent 60%);
+    padding: 30px 24px 0;
+  }
+  .gown-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: var(--gold);
+    color: var(--green-dark);
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    font-weight: 700;
+  }
+  .gown-info {
+    padding: 20px 24px;
+    background: var(--green-dark);
+  }
+  .gown-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--cream);
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .gown-category {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .gown-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .gown-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    color: var(--cream);
+    letter-spacing: 1px;
+  }
+  .gown-price small {
+    font-size: 12px;
+    color: var(--text-light);
+    font-family: 'DM Sans', sans-serif;
+    letter-spacing: 0;
+    font-weight: 300;
+  }
+  .rent-btn {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 8px 16px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .rent-btn:hover { background: var(--gold); color: var(--green-dark); }
+
+  /* UNIVERSITIES / PARTNERS */
+  .universities {
+    background: var(--cream);
+    padding: 80px 60px;
+  }
+  .uni-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2px;
+    margin-top: 50px;
+  }
+  .uni-card {
+    background: var(--green-dark);
+    padding: 32px 24px;
+    text-align: center;
+    transition: background 0.3s;
+    cursor: default;
+  }
+  .uni-card:hover { background: var(--green-mid); }
+  .uni-icon {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 40px;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .uni-name {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-light);
+    line-height: 1.5;
+  }
+
+  /* PROCESS / RENTAL INFO */
+  .rental-info {
+    background: var(--green-dark);
+    padding: 100px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .rental-visual {
+    position: relative;
+  }
+  .rental-big-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 200px;
+    color: var(--green-accent);
+    line-height: 1;
+    opacity: 0.3;
+    position: absolute;
+    top: -30px;
+    left: -20px;
+  }
+  .rental-card {
+    background: var(--green-mid);
+    padding: 48px;
+    position: relative;
+    z-index: 2;
+    border-left: 4px solid var(--gold);
+  }
+  .rental-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    color: var(--cream);
+    margin-bottom: 24px;
+    font-weight: 700;
+  }
+  .rental-card-title em { color: var(--gold); font-style: italic; }
+  .rental-detail {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+    align-items: flex-start;
+  }
+  .rental-detail-icon {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--gold);
+    flex-shrink: 0;
+    width: 30px;
+  }
+  .rental-detail-text { font-size: 14px; color: var(--text-light); line-height: 1.6; }
+  .rental-content .section-title { color: var(--cream); }
+  .rental-content .section-title em { color: var(--gold); }
+  .rental-content .section-eyebrow { }
+  .packages-list { margin-top: 32px; display: flex; flex-direction: column; gap: 16px; }
+  .package-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border: 1px solid var(--green-accent);
+    transition: border-color 0.3s, background 0.3s;
+    cursor: default;
+  }
+  .package-item:hover { border-color: var(--gold); background: rgba(201,168,76,0.05); }
+  .package-name { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--cream); }
+  .package-sub { font-size: 11px; color: var(--text-light); letter-spacing: 1px; margin-top: 4px; }
+  .package-price { font-family: 'Bebas Neue', sans-serif; font-size: 30px; color: var(--gold); }
+  .package-price small { font-size: 12px; font-family: 'DM Sans', sans-serif; color: var(--text-light); }
+
+  /* TESTIMONIALS */
+  .testimonials {
+    background: var(--cream);
+    padding: 100px 60px;
+  }
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+    margin-top: 50px;
+  }
+  .testimonial-card {
+    background: var(--green-dark);
+    padding: 40px 36px;
+    position: relative;
+  }
+  .testimonial-card::before {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: 120px;
+    color: var(--green-accent);
+    position: absolute;
+    top: -20px;
+    left: 20px;
+    line-height: 1;
+    opacity: 0.4;
+  }
+  .testimonial-text {
+    font-size: 15px;
+    color: var(--text-light);
+    line-height: 1.8;
+    font-style: italic;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+  }
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .author-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--green-accent);
+    border: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    color: var(--gold);
+  }
+  .author-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    color: var(--cream);
+    font-weight: 700;
+  }
+  .author-uni { font-size: 11px; color: var(--gold); letter-spacing: 1px; }
+
+  /* CTA SECTION */
+  .cta-section {
+    background: var(--green-mid);
+    padding: 100px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    border-top: 4px solid var(--gold);
+  }
+  .cta-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 6vw, 80px);
+    color: var(--cream);
+    line-height: 1;
+    letter-spacing: 2px;
+  }
+  .cta-title span { color: var(--gold); display: block; }
+  .cta-right { display: flex; flex-direction: column; gap: 20px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .form-input {
+    background: transparent;
+    border: 1px solid var(--green-accent);
+    color: var(--cream);
+    padding: 14px 18px;
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+    transition: border-color 0.3s;
+    width: 100%;
+  }
+  .form-input::placeholder { color: var(--text-light); opacity: 0.5; }
+  .form-input:focus { border-color: var(--gold); }
+  .form-select {
+    background: var(--green-dark);
+    border: 1px solid var(--green-accent);
+    color: var(--text-light);
+    padding: 14px 18px;
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+    width: 100%;
+    cursor: pointer;
+  }
+  .form-select:focus { border-color: var(--gold); }
+
+  /* FOOTER */
+  footer {
+    background: var(--green-dark);
+    padding: 80px 60px 40px;
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
+    gap: 60px;
+    margin-bottom: 60px;
+  }
+  .footer-brand .nav-logo { font-size: 32px; margin-bottom: 20px; display: block; }
+  .footer-brand p {
+    font-size: 13px;
+    color: var(--text-light);
+    line-height: 1.7;
+    font-weight: 300;
+    max-width: 240px;
+  }
+  .footer-col h4 {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    font-weight: 700;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col ul li a {
+    font-size: 13px;
+    color: var(--text-light);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .footer-col ul li a:hover { color: var(--cream); }
+  .footer-newsletter p { font-size: 13px; color: var(--text-light); margin-bottom: 16px; line-height: 1.6; }
+  .footer-newsletter-form { display: flex; gap: 0; }
+  .footer-newsletter-form input {
+    flex: 1;
+    background: var(--green-mid);
+    border: 1px solid var(--green-accent);
+    border-right: none;
+    color: var(--cream);
+    padding: 12px 16px;
+    font-size: 12px;
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+  }
+  .footer-newsletter-form button {
+    background: var(--gold);
+    border: none;
+    color: var(--green-dark);
+    padding: 12px 16px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .footer-bottom {
+    border-top: 1px solid var(--green-accent);
+    padding-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-bottom p { font-size: 12px; color: var(--text-light); }
+  .footer-social { display: flex; gap: 16px; }
+  .social-link {
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--green-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-light);
+    font-size: 12px;
+    text-decoration: none;
+    transition: all 0.3s;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0;
+  }
+  .social-link:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-left > * {
+    animation: fadeUp 0.8s ease forwards;
+    opacity: 0;
+  }
+  .hero-eyebrow { animation-delay: 0.1s; }
+  .hero-title { animation-delay: 0.2s; }
+  .hero-subtitle { animation-delay: 0.35s; }
+  .hero-actions { animation-delay: 0.5s; }
+  .hero-stats { animation-delay: 0.65s; }
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <span>FREE DELIVERY & PICKUP</span><span class="dot">✦</span>
+    <span>3-DAY RENTAL PACKAGES</span><span class="dot">✦</span>
+    <span>ALL UNIVERSITIES COVERED</span><span class="dot">✦</span>
+    <span>CUSTOM HOOD COLORS</span><span class="dot">✦</span>
+    <span>SAME-DAY BOOKING AVAILABLE</span><span class="dot">✦</span>
+    <span>FREE DELIVERY & PICKUP</span><span class="dot">✦</span>
+    <span>3-DAY RENTAL PACKAGES</span><span class="dot">✦</span>
+    <span>ALL UNIVERSITIES COVERED</span><span class="dot">✦</span>
+    <span>CUSTOM HOOD COLORS</span><span class="dot">✦</span>
+    <span>SAME-DAY BOOKING AVAILABLE</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">GRAD<span>LOOM</span></div>
+  <ul class="nav-links">
+    <li><a href="#">Collections</a></li>
+    <li><a href="#">Universities</a></li>
+    <li><a href="#">Packages</a></li>
+    <li><a href="#">About Us</a></li>
+    <li><a href="#">News</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <button class="nav-cta">Book Now</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Class of 2025 Collections</div>
+    <h1 class="hero-title">
+      WEAR YOUR<br><em>MOMENT</em><br>PROUDLY
+    </h1>
+    <p class="hero-subtitle">
+      Premium graduation gown rentals for every ceremony, every degree, every proud moment. Impeccably crafted academic regalia delivered to your door.
+    </p>
+    <div class="hero-actions">
+      <button class="btn-primary">Browse Gowns</button>
+      <button class="btn-outline">How It Works</button>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">+8K</div>
+        <div class="stat-label">Happy Graduates</div>
+      </div>
+      <div>
+        <div class="stat-num">+60</div>
+        <div class="stat-label">Universities</div>
+      </div>
+      <div>
+        <div class="stat-num">+200</div>
+        <div class="stat-label">Gown Styles</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-placeholder">
+      <svg width="340" height="520" viewBox="0 0 340 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Graduation gown illustration -->
+        <rect x="120" y="0" width="100" height="18" fill="#1a3020" stroke="#c9a84c" stroke-width="2"/>
+        <rect x="150" y="-30" width="40" height="34" fill="#1a3020" stroke="#c9a84c" stroke-width="2"/>
+        <line x1="220" y1="-10" x2="260" y2="30" stroke="#c9a84c" stroke-width="2"/>
+        <circle cx="170" cy="60" r="44" fill="#2d4a2d"/>
+        <ellipse cx="170" cy="300" rx="120" ry="220" fill="#1a3020"/>
+        <ellipse cx="170" cy="190" rx="60" ry="80" fill="#2d4a2d"/>
+        <rect x="100" y="160" width="20" height="120" rx="10" fill="#1a3020" transform="rotate(-15 100 160)"/>
+        <rect x="200" y="160" width="20" height="120" rx="10" fill="#1a3020" transform="rotate(15 220 160)"/>
+        <rect x="130" y="180" width="80" height="200" rx="2" fill="#223822" opacity="0.6"/>
+        <line x1="170" y1="180" x2="170" y2="380" stroke="#c9a84c" stroke-width="1.5" stroke-dasharray="6 4"/>
+        <rect x="148" y="200" width="44" height="8" rx="2" fill="#c9a84c" opacity="0.5"/>
+        <polygon points="170,420 155,520 185,520" fill="#1a2b1a"/>
+      </svg>
+      <div class="hero-badge">
+        <div class="hero-badge-text">PREMIUM<br>★<br>REGALIA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-bar">
+  <div class="marquee-inner">
+    <span>BACHELOR</span><span class="star">✦</span>
+    <span>MASTER'S</span><span class="star">✦</span>
+    <span>DOCTORATE</span><span class="star">✦</span>
+    <span>LAW</span><span class="star">✦</span>
+    <span>MEDICINE</span><span class="star">✦</span>
+    <span>ENGINEERING</span><span class="star">✦</span>
+    <span>ARTS</span><span class="star">✦</span>
+    <span>SCIENCE</span><span class="star">✦</span>
+    <span>BACHELOR</span><span class="star">✦</span>
+    <span>MASTER'S</span><span class="star">✦</span>
+    <span>DOCTORATE</span><span class="star">✦</span>
+    <span>LAW</span><span class="star">✦</span>
+    <span>MEDICINE</span><span class="star">✦</span>
+    <span>ENGINEERING</span><span class="star">✦</span>
+    <span>ARTS</span><span class="star">✦</span>
+    <span>SCIENCE</span><span class="star">✦</span>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how-it-works">
+  <div class="section-label">HOW IT WORKS</div>
+  <div class="hiw-content">
+    <div class="section-eyebrow">The Process</div>
+    <h2 class="section-title">DRESSED FOR YOUR <em>FINEST HOUR</em></h2>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-title">Choose Your Gown</div>
+        <div class="step-desc">Browse our curated collections filtered by degree level, faculty color, and university requirements.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-title">Select Your Dates</div>
+        <div class="step-desc">Pick your ceremony date and choose from 1, 3, or 5-day rental windows to suit your schedule.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-title">We Deliver</div>
+        <div class="step-desc">Your pressed, pristine regalia arrives at your door 24 hours before your ceremony day.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-title">Return & Go</div>
+        <div class="step-desc">After your celebration, we collect the gown from your home. No dry cleaning needed.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLLECTIONS -->
+<section class="collections">
+  <div class="collections-header">
+    <div>
+      <div class="section-eyebrow" style="color:var(--gold)">Our Collections</div>
+      <h2 class="section-title" style="color:var(--cream); margin-bottom:0;">GOWNS FOR <em>EVERY</em><br>DEGREE</h2>
+    </div>
+    <a href="#" class="view-all-link">View All Styles</a>
+  </div>
+
+  <div class="filter-tabs">
+    <button class="tab active">All Gowns</button>
+    <button class="tab">Bachelor's</button>
+    <button class="tab">Master's</button>
+    <button class="tab">Doctorate</button>
+    <button class="tab">Law & Medicine</button>
+    <button class="tab">Accessories</button>
+    <button class="tab">Packages</button>
+  </div>
+
+  <div class="gowns-grid">
+    <div class="gown-card">
+      <div class="gown-img">
+        <div class="gown-img-bg bg-v1"></div>
+        <svg class="gown-figure" viewBox="0 0 140 300" fill="none">
+          <circle cx="70" cy="30" r="28" fill="#2d4a2d"/>
+          <ellipse cx="70" cy="180" rx="55" ry="130" fill="#1a3020"/>
+          <rect x="20" y="80" width="100" height="20" rx="2" fill="#c9a84c" opacity="0.4"/>
+          <line x1="70" y1="100" x2="70" y2="280" stroke="#c9a84c" stroke-width="1" stroke-dasharray="4 3"/>
+        </svg>
+        <div class="gown-overlay"></div>
+        <div class="gown-badge">New</div>
+      </div>
+      <div class="gown-info">
+        <div class="gown-name">The Emerald Classic</div>
+        <div class="gown-category">Bachelor's · Dark Green</div>
+        <div class="gown-footer">
+          <div class="gown-price">₹1,499 <small>/rental</small></div>
+          <button class="rent-btn">Rent Now</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="gown-card">
+      <div class="gown-img">
+        <div class="gown-img-bg bg-v2"></div>
+        <svg class="gown-figure" viewBox="0 0 140 300" fill="none">
+          <circle cx="70" cy="30" r="28" fill="#1a2d4a"/>
+          <ellipse cx="70" cy="180" rx="55" ry="130" fill="#0d1a30"/>
+          <rect x="20" y="80" width="100" height="20" rx="2" fill="#c9a84c" opacity="0.4"/>
+          <line x1="70" y1="100" x2="70" y2="280" stroke="#c9a84c" stroke-width="1" stroke-dasharray="4 3"/>
+          <rect x="44" y="120" width="52" height="6" rx="1" fill="#c9a84c" opacity="0.6"/>
+        </svg>
+        <div class="gown-overlay"></div>
+      </div>
+      <div class="gown-info">
+        <div class="gown-name">The Oxford Navy</div>
+        <div class="gown-category">Master's · Midnight Blue</div>
+        <div class="gown-footer">
+          <div class="gown-price">₹1,899 <small>/rental</small></div>
+          <button class="rent-btn">Rent Now</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="gown-card">
+      <div class="gown-img">
+        <div class="gown-img-bg bg-v3"></div>
+        <svg class="gown-figure" viewBox="0 0 140 300" fill="none">
+          <circle cx="70" cy="30" r="28" fill="#5a1a1a"/>
+          <ellipse cx="70" cy="180" rx="55" ry="130" fill="#3d0d0d"/>
+          <rect x="20" y="80" width="100" height="20" rx="2" fill="#c9a84c" opacity="0.5"/>
+          <line x1="70" y1="100" x2="70" y2="280" stroke="#c9a84c" stroke-width="1" stroke-dasharray="4 3"/>
+          <polygon points="50,90 90,90 80,140 60,140" fill="#c9a84c" opacity="0.2"/>
+        </svg>
+        <div class="gown-overlay"></div>
+        <div class="gown-badge" style="background:var(--red-accent);color:var(--cream);">Popular</div>
+      </div>
+      <div class="gown-info">
+        <div class="gown-name">The Crimson Scholar</div>
+        <div class="gown-category">Doctorate · Burgundy</div>
+        <div class="gown-footer">
+          <div class="gown-price">₹2,499 <small>/rental</small></div>
+          <button class="rent-btn">Rent Now</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="gown-card">
+      <div class="gown-img">
+        <div class="gown-img-bg bg-v4"></div>
+        <svg class="gown-figure" viewBox="0 0 140 300" fill="none">
+          <circle cx="70" cy="30" r="28" fill="#2a2a2a"/>
+          <ellipse cx="70" cy="180" rx="55" ry="130" fill="#111"/>
+          <rect x="20" y="80" width="100" height="20" rx="2" fill="#c9a84c" opacity="0.5"/>
+          <line x1="70" y1="100" x2="70" y2="280" stroke="#c9a84c" stroke-width="1" stroke-dasharray="4 3"/>
+        </svg>
+        <div class="gown-overlay"></div>
+      </div>
+      <div class="gown-info">
+        <div class="gown-name">The Black Excellence</div>
+        <div class="gown-category">All Degrees · Onyx Black</div>
+        <div class="gown-footer">
+          <div class="gown-price">₹1,699 <small>/rental</small></div>
+          <button class="rent-btn">Rent Now</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="gown-card">
+      <div class="gown-img">
+        <div class="gown-img-bg bg-v5"></div>
+        <svg class="gown-figure" viewBox="0 0 140 300" fill="none">
+          <circle cx="70" cy="30" r="28" fill="#3d3a20"/>
+          <ellipse cx="70" cy="180" rx="55" ry="130" fill="#2a1a0d"/>
+          <rect x="20" y="80" width="100" height="20" rx="2" fill="#c9a84c" opacity="0.7"/>
+          <line x1="70" y1="100" x2="70" y2="280" stroke="#c9a84c" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <rect x="44" y="120" width="52" height="6" rx="1" fill="#c9a84c" opacity="0.8"/>
+          <rect x="50" y="135" width="40" height="4" rx="1" fill="#c9a84c" opacity="0.5"/>
+        </svg>
+        <div class="gown-overlay"></div>
+        <div class="gown-badge">Premium</div>
+      </div>
+      <div class="gown-info">
+        <div class="gown-name">The Golden Laureate</div>
+        <div class="gown-category">Master's · Gold Trim</div>
+        <div class="gown-footer">
+          <div class="gown-price">₹2,199 <small>/rental</small></div>
+          <button class="rent-btn">Rent Now</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="gown-card">
+      <div class="gown-img">
+        <div class="gown-img-bg bg-v6"></div>
+        <svg class="gown-figure" viewBox="0 0 140 300" fill="none">
+          <circle cx="70" cy="30" r="28" fill="#2a1a5a"/>
+          <ellipse cx="70" cy="180" rx="55" ry="130" fill="#150d30"/>
+          <rect x="20" y="80" width="100" height="20" rx="2" fill="#c9a84c" opacity="0.4"/>
+          <line x1="70" y1="100" x2="70" y2="280" stroke="#c9a84c" stroke-width="1" stroke-dasharray="4 3"/>
+        </svg>
+        <div class="gown-overlay"></div>
+      </div>
+      <div class="gown-info">
+        <div class="gown-name">The Royal Decree</div>
+        <div class="gown-category">Law · Royal Purple</div>
+        <div class="gown-footer">
+          <div class="gown-price">₹2,299 <small>/rental</small></div>
+          <button class="rent-btn">Rent Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UNIVERSITIES -->
+<section class="universities">
+  <div class="section-eyebrow">Partner Institutions</div>
+  <h2 class="section-title">OFFICIAL REGALIA FOR <em>60+</em><br>UNIVERSITIES</h2>
+  <div class="uni-grid">
+    <div class="uni-card">
+      <div class="uni-icon">DU</div>
+      <div class="uni-name">Delhi University</div>
+    </div>
+    <div class="uni-card">
+      <div class="uni-icon">MU</div>
+      <div class="uni-name">Mumbai University</div>
+    </div>
+    <div class="uni-card">
+      <div class="uni-icon">IIT</div>
+      <div class="uni-name">IIT Bombay</div>
+    </div>
+    <div class="uni-card">
+      <div class="uni-icon">JNU</div>
+      <div class="uni-name">Jawaharlal Nehru University</div>
+    </div>
+    <div class="uni-card">
+      <div class="uni-icon">BHU</div>
+      <div class="uni-name">Banaras Hindu University</div>
+    </div>
+  </div>
+</section>
+
+<!-- RENTAL INFO + PACKAGES -->
+<section class="rental-info">
+  <div class="rental-visual">
+    <div class="rental-big-num">★</div>
+    <div class="rental-card">
+      <div class="rental-card-title">Every Detail,<br><em>Perfected</em></div>
+      <div class="rental-detail">
+        <div class="rental-detail-icon">✦</div>
+        <div class="rental-detail-text">Dry-cleaned and pressed regalia delivered in branded garment bags, ready to wear on your ceremony day.</div>
+      </div>
+      <div class="rental-detail">
+        <div class="rental-detail-icon">✦</div>
+        <div class="rental-detail-text">Size guarantee — if your gown doesn't fit perfectly, we replace it within 2 hours, guaranteed.</div>
+      </div>
+      <div class="rental-detail">
+        <div class="rental-detail-icon">✦</div>
+        <div class="rental-detail-text">Custom hood colors matched to your faculty and degree level, verified by our academic regalia experts.</div>
+      </div>
+      <div class="rental-detail">
+        <div class="rental-detail-icon">✦</div>
+        <div class="rental-detail-text">Optional keepsake photography package with a professional portrait session in your regalia.</div>
+      </div>
+    </div>
+  </div>
+  <div class="rental-content">
+    <div class="section-eyebrow">Rental Packages</div>
+    <h2 class="section-title">PICK YOUR <em>PERFECT</em><br>PACKAGE</h2>
+    <div class="packages-list">
+      <div class="package-item">
+        <div>
+          <div class="package-name">Essential</div>
+          <div class="package-sub">Gown + Cap · 1 Day · Free Delivery</div>
+        </div>
+        <div class="package-price">₹999 <small>/day</small></div>
+      </div>
+      <div class="package-item">
+        <div>
+          <div class="package-name">Scholar</div>
+          <div class="package-sub">Gown + Cap + Hood · 3 Days · Free Delivery</div>
+        </div>
+        <div class="package-price">₹1,799 <small>/3 days</small></div>
+      </div>
+      <div class="package-item">
+        <div>
+          <div class="package-name">Laureate</div>
+          <div class="package-sub">Full Regalia + Sash + Photography · 5 Days</div>
+        </div>
+        <div class="package-price">₹3,499 <small>/5 days</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-eyebrow">Graduate Stories</div>
+  <h2 class="section-title">WHAT OUR<br><em>GRADUATES</em> SAY</h2>
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <p class="testimonial-text">The gown arrived perfectly pressed and fit like it was tailored for me. Made my graduation photos absolutely stunning. Worth every rupee.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">P</div>
+        <div>
+          <div class="author-name">Priya Sharma</div>
+          <div class="author-uni">MBA · IIM Ahmedabad · 2024</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <p class="testimonial-text">Needed a specific doctoral hood color for my PhD ceremony. GradLoom matched it exactly and delivered 24 hours before the ceremony. Impeccable service.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">R</div>
+        <div>
+          <div class="author-name">Rahul Mehta</div>
+          <div class="author-uni">PhD · IIT Delhi · 2024</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <p class="testimonial-text">Booked the Laureate package and the portrait session was incredible. The photos turned out magazine-quality. My family was so proud.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">A</div>
+        <div>
+          <div class="author-name">Ananya Krishnan</div>
+          <div class="author-uni">MBBS · AIIMS · 2024</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / BOOKING FORM -->
+<section class="cta-section">
+  <div>
+    <h2 class="cta-title">BOOK YOUR<br><span>GRADUATION</span>LOOK</h2>
+    <p style="font-size:14px;color:var(--text-light);margin-top:24px;line-height:1.7;max-width:340px;">Reserve your regalia today. Slots fill up fast during peak graduation season — don't miss your moment.</p>
+  </div>
+  <div class="cta-right">
+    <div class="form-row">
+      <input type="text" class="form-input" placeholder="First Name">
+      <input type="text" class="form-input" placeholder="Last Name">
+    </div>
+    <input type="email" class="form-input" placeholder="Email Address">
+    <input type="text" class="form-input" placeholder="University / Institution">
+    <div class="form-row">
+      <select class="form-select">
+        <option>Degree Level</option>
+        <option>Bachelor's</option>
+        <option>Master's</option>
+        <option>Doctorate</option>
+        <option>Law / Medicine</option>
+      </select>
+      <input type="text" class="form-input" placeholder="Ceremony Date">
+    </div>
+    <select class="form-select">
+      <option>Select Package</option>
+      <option>Essential — ₹999</option>
+      <option>Scholar — ₹1,799</option>
+      <option>Laureate — ₹3,499</option>
+    </select>
+    <button class="btn-primary" style="width:100%;padding:18px;">Reserve Your Gown →</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <span class="nav-logo">GRAD<span>LOOM</span></span>
+      <p>Premium graduation gown rentals for India's brightest graduates. Wear your moment with pride and elegance.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Collections</h4>
+      <ul>
+        <li><a href="#">Bachelor's Gowns</a></li>
+        <li><a href="#">Master's Gowns</a></li>
+        <li><a href="#">Doctoral Regalia</a></li>
+        <li><a href="#">Law & Medicine</a></li>
+        <li><a href="#">Accessories</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>By Degree</h4>
+      <ul>
+        <li><a href="#">Undergraduate</a></li>
+        <li><a href="#">Postgraduate</a></li>
+        <li><a href="#">Research</a></li>
+        <li><a href="#">Professional</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">How It Works</a></li>
+        <li><a href="#">Universities</a></li>
+        <li><a href="#">Terms of Use</a></li>
+        <li><a href="#">Shipping Info</a></li>
+      </ul>
+    </div>
+    <div class="footer-col footer-newsletter">
+      <h4>Stay Updated</h4>
+      <p>Get early access to new collections and exclusive graduation season offers.</p>
+      <div class="footer-newsletter-form">
+        <input type="email" placeholder="Your email">
+        <button>→</button>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 GradLoom. All Rights Reserved.</p>
+    <div class="footer-social">
+      <a href="#" class="social-link">IG</a>
+      <a href="#" class="social-link">FB</a>
+      <a href="#" class="social-link">TW</a>
+      <a href="#" class="social-link">YT</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Filter tab interactions
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  // Scroll reveal animation
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.step, .gown-card, .testimonial-card, .package-item, .uni-card').forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = `opacity 0.6s ease ${i * 0.08}s, transform 0.6s ease ${i * 0.08}s`;
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
